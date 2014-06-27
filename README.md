@@ -10,10 +10,6 @@ I built `csvtomd` to convert one or more CSV files into nicely-padded Markdown t
 
 # Usage
 
-## Requirements
-
-Python 3. Tested on Python 3.4.1.
-
 ## Input
 
 File: `thrones.csv`
@@ -58,6 +54,10 @@ Margaery  |Tyrell   |The Reach        |House Tyrell
 Danerys   |Targaryen|Meereen          |House Targaryen
 Tyrion    |Lannister|King's Landing   |House Lannister
 ```
+
+## Requirements
+
+Python 3. Tested on Python 3.4.1.
 
 ## Help
 
