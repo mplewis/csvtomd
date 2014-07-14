@@ -8,9 +8,23 @@ Convert your CSV files into Markdown tables.
 
 I built `csvtomd` to convert one or more CSV files into nicely-padded Markdown tables. Now you can build your tables in Excel and convert them for use in GitHub, Bitbucket, or [Mou](http://mouapp.com/) Markdown files without having to construct them by hand.
 
+# Installation
+
+This is a Python 3 script, so use `pip3` to install:
+
+```
+pip3 install csvtomd
+```
+
+After this, run `csvtomd --help` from your terminal to verify it's installed properly.
+
 # Usage
 
-## Input
+`csvtomd MY_SPREADSHEET.csv` generates a Markdown table from `MY_SPREADSHEET.csv`.
+
+`csvtomd SHEET1.csv SHEET2.csv SHEET3.csv` generates three Markdown tables from the input files and displays them alongside the input filename.
+
+## Example Input
 
 File: `thrones.csv`
 
@@ -22,7 +36,9 @@ Danerys,Targaryen,Meereen,House Targaryen
 Tyrion,Lannister,King's Landing,House Lannister
 ```
 
-## Markdown Table
+## Example Markdown Table
+
+Command: `csvtomd thrones.csv`
 
 First Name  |  Last Name  |  Location           |  Allegiance
 ------------|-------------|---------------------|-----------------
@@ -31,9 +47,9 @@ Margaery    |  Tyrell     |  The Reach          |  House Tyrell
 Danerys     |  Targaryen  |  Meereen            |  House Targaryen
 Tyrion      |  Lannister  |  King's Landing     |  House Lannister
 
-## Raw Output
+## Example Raw Output
 
-Command: `./csvtomd.py thrones.csv`
+Command: `csvtomd thrones.csv`
 
 ```
 First Name  |  Last Name  |  Location           |  Allegiance
@@ -44,7 +60,7 @@ Danerys     |  Targaryen  |  Meereen            |  House Targaryen
 Tyrion      |  Lannister  |  King's Landing     |  House Lannister
 ```
 
-Command: `./csvtomd.py --padding 0 thrones.csv`
+Command: `csvtomd --padding 0 thrones.csv`
 
 ```
 First Name|Last Name|Location         |Allegiance
@@ -57,11 +73,15 @@ Tyrion    |Lannister|King's Landing   |House Lannister
 
 ## Requirements
 
-Python 3. Tested on Python 3.4.1.
+Python 3.
+
+Tested with Python 3.4.1 on Mac OS X 10.9.3.
+
+Doesn't require any external packages, so it should be platform-agnostic.
 
 ## Help
 
-Command: `./csvtomd.py --help`
+Command: `csvtomd --help`
 
 ```
 usage: csvtomd.py [-h] [-n] [-p PADDING] csv_file [csv_file ...]
