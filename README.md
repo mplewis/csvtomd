@@ -2,6 +2,8 @@
 
 *Version 0.1.1*
 
+![Excel —> Markdown](http://mplewis.com/files/csvtomd.png)
+
 Convert your CSV files into Markdown tables.
 
 [Tables Generator](http://www.tablesgenerator.com/markdown_tables) is a fantastic web tool for converting tabular data into all sorts of table layouts. I like how it lets me import CSV files, but I need the ability to convert many CSV files in batch for a docset on which I'm working.
