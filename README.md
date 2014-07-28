@@ -2,7 +2,7 @@
 
 *Version 0.1.1*
 
-![Excel —> Markdown](http://mplewis.com/files/csvtomd.png)
+![Excel —> Markdown](http://mplewis.com/files/csvtomd.png?)
 
 Convert your CSV files into Markdown tables.
 
