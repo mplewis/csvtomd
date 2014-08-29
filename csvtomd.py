@@ -10,6 +10,7 @@ More info: http://github.com/mplewis/csvtomd
 
 import argparse
 from csv import reader
+import sys
 
 
 def check_negative(value):
@@ -61,6 +62,8 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     else:
         header_div_row = divider.join(header_divs)
     for row in table:
+        if len(row) != num_cols:
+            sys.exit('Not all rows have the same number of columns')
         for cell_num, cell in enumerate(row):
             # Pad each cell to the column size
             row[cell_num] = pad_to(cell, col_sizes[cell_num])
