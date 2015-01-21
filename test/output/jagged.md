@@ -1,0 +1,1 @@
+First Name | Last Name | Location          | Allegiance     \n-----------|-----------|-------------------|----------------\nMance      | Rayder    | North of the Wall | Wildlings      \nMargaery   | Tyrell    | The Reach         | House Tyrell   \nDanerys    | Targaryen | Meereen           | House Targaryen\nTyrion     | Lannister | King's Landing    | House Lannister
