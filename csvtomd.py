@@ -10,7 +10,6 @@ More info: http://github.com/mplewis/csvtomd
 
 import argparse
 from csv import reader
-import sys
 
 
 def check_negative(value):
@@ -47,6 +46,12 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     """
     # Output data buffer
     output = ''
+    # Pad short rows to the length of the longest row to fix issues with
+    # rendering "jagged" CSV files
+    longest_row_len = max([len(row) for row in table])
+    for row in table:
+        while len(row) < longest_row_len:
+            row.append('')
     # Get max length of any cell for each column
     col_sizes = [max(map(len, col)) for col in zip(*table)]
     # Set up the horizontal header dividers
@@ -62,8 +67,6 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     else:
         header_div_row = divider.join(header_divs)
     for row in table:
-        if len(row) != num_cols:
-            sys.exit('Not all rows have the same number of columns')
         for cell_num, cell in enumerate(row):
             # Pad each cell to the column size
             row[cell_num] = pad_to(cell, col_sizes[cell_num])
