@@ -57,8 +57,8 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     # Set up the horizontal header dividers
     header_divs = [None] * len(col_sizes)
     num_cols = len(col_sizes)
+    # Pad header divs to the column size
     for cell_num in range(num_cols):
-        # Pad header divs to the column size
         header_divs[cell_num] = header_div * (col_sizes[cell_num] +
                                               padding * 2)
     # Trim first and last padding chars, if they exist
@@ -66,9 +66,9 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
         header_div_row = divider.join(header_divs)[padding:-padding]
     else:
         header_div_row = divider.join(header_divs)
+    # Pad each cell to the column size
     for row in table:
         for cell_num, cell in enumerate(row):
-            # Pad each cell to the column size
             row[cell_num] = pad_to(cell, col_sizes[cell_num])
     # Split out the header from the body
     header = table[0]
