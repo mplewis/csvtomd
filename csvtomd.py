@@ -62,7 +62,7 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
         header_divs[cell_num] = header_div * (col_sizes[cell_num] +
                                               padding * 2)
     # Trim first and last padding chars, if they exist
-    if (padding > 0):
+    if padding > 0:
         header_div_row = divider.join(header_divs)[padding:-padding]
     else:
         header_div_row = divider.join(header_divs)
