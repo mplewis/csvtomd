@@ -2,9 +2,7 @@ from csvtomd import md_table
 
 import sure  # noqa
 from csv import reader
-from glob import glob
-from pprint import pprint
-from os.path import basename, splitext
+
 
 
 def test_default():
@@ -13,6 +11,7 @@ def test_default():
     with open('test/output/normal.md') as f:
         expected = f.read().strip()
     md_table(to_convert).should.equal(expected)
+
 
 def test_jagged():
     with open('test/input/jagged.csv') as f:
