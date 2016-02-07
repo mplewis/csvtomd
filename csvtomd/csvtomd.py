@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-csvtomd v0.1.1
+csvtomd v0.1.2
 
 Convert your CSV files into Markdown tables.
 
@@ -100,6 +100,8 @@ def main():
     parser.add_argument('-p', '--padding', type=check_negative, default=2,
                         help="The number of spaces to add between table cells "
                              "and column dividers. Default is 2 spaces.")
+    parser.add_argument('-d', '--delimiter', default=',',
+                        help="CSV delimiter, expected values: ',', ';'. Default is %(default)s")
 
     args = parser.parse_args()
     first = True
@@ -111,7 +113,7 @@ def main():
             first = False
         # Read the CSV files
         with open(filename, 'rU') as f:
-            csv = reader(f)
+            csv = reader(f, delimiter=args.delimiter)
             table = [row for row in csv]
         # Print filename for each table if --no-filenames wasn't passed and more
         # than one CSV was provided
