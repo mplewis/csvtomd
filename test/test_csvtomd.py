@@ -1,17 +1,22 @@
-from .csvtomd import md_table
+from csvtomd import md_table
 
-import sure
+import sure  # noqa
 from csv import reader
 from glob import glob
+from pprint import pprint
 from os.path import basename, splitext
 
 
-def test_all_csv_files():
-    for csv in glob('test/input/*.csv'):
-        filename_only = splitext(basename(csv))[0]
-        with open(csv) as f:
-            to_convert = [row for row in reader(f)]
-        with open('test/output/{}.md'.format(filename_only)) as f:
-            expected = f.read()
-        print(to_convert)
-        md_table(to_convert).should.equal(expected)
+def test_default():
+    with open('test/input/normal.csv') as f:
+        to_convert = [row for row in reader(f)]
+    with open('test/output/normal.md') as f:
+        expected = f.read().strip()
+    md_table(to_convert).should.equal(expected)
+
+def test_jagged():
+    with open('test/input/jagged.csv') as f:
+        to_convert = [row for row in reader(f)]
+    with open('test/output/jagged.md') as f:
+        expected = f.read().strip()
+    md_table(to_convert).should.equal(expected)
