@@ -68,10 +68,13 @@ def test_horiz_div():
 def test_add_dividers():
     output = add_dividers(['a', 'b', 'c'], '|', 1)
     expected = 'a | b | c'
+    output.should.equal(expected)
     output = add_dividers(['a', 'b', 'c', 'd', 'e'], '#', 0)
     expected = 'a#b#c#d#e'
-    output = add_dividers(['a', 'b', 'c', 'd'], '.', 3)
+    output.should.equal(expected)
+    output = add_dividers(['a', 'b', 'c', 'd', 'e'], '.', 3)
     expected = 'a   .   b   .   c   .   d   .   e'
+    output.should.equal(expected)
 
 
 csvs = glob('test/input/*.csv')
