@@ -57,6 +57,20 @@ def pad_cells(table):
     return table
 
 
+def horiz_div(col_widths, horiz, vert, padding):
+    """
+    Create the column dividers for a table with given column widths.
+
+    col_widths: list of column widths
+    horiz: the character to use for a horizontal divider
+    vert: the character to use for a vertical divider
+    padding: amount of padding to add to each side of a column
+    """
+    col_ws_padded = [cw + 2 * padding for cw in col_widths]
+    horizs = [horiz * w for w in col_ws_padded]
+    return vert.join(horizs)
+
+
 def md_table(table, *, padding=1, divider='|', header_div='-'):
     """
     Convert a 2D array of items into a Markdown table.
@@ -70,7 +84,14 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     output = ''
     table = normalize_cols(table)
     table = pad_cells(table)
-    pprint(table)
+
+    header = table[0]
+    body = table[1:]
+
+    col_widths = [len(cell) for cell in header]
+    horiz = horiz_line(col_widths, header_div, divider, padding)
+
+
     # Get max length of any cell for each column
     # Set up the horizontal header dividers
     header_divs = [None] * len(col_sizes)
@@ -85,8 +106,6 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     else:
         header_div_row = divider.join(header_divs)
     # Split out the header from the body
-    header = table[0]
-    body = table[1:]
     # Build the inter-column dividers using the padding settings above
     multipad = ' ' * padding
     divider = multipad + divider + multipad

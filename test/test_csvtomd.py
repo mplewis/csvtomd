@@ -1,4 +1,4 @@
-from csvtomd.csvtomd import pad_to, normalize_cols, pad_cells
+from csvtomd.csvtomd import pad_to, normalize_cols, pad_cells, horiz_div
 
 import sure  # noqa
 
@@ -32,3 +32,12 @@ def test_pad_cells():
         ['1    ', '123', '12'],
     ]
     pad_cells(initial).should.equal(expected)
+
+
+def test_horiz_div():
+    output = horiz_div([3, 1, 2], '-', '|', 1)
+    expected = '-----|---|----'
+    output.should.equal(expected)
+    output = horiz_div([5, 3, 1], '.', '#', 2)
+    expected = '.........#.......#.....'
+    output.should.equal(expected)
