@@ -4,5 +4,4 @@ machine:
 
 dependencies:
   override:
-    - python setup_wrap.py install
     - pip install -r test/requirements_test.txt
