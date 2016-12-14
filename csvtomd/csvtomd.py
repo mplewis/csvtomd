@@ -9,8 +9,7 @@ More info: http://github.com/mplewis/csvtomd
 """
 
 import argparse
-from csv import reader
-from pprint import pprint
+import csv
 
 
 def check_negative(value):
@@ -86,8 +85,6 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     header_div: the horizontal divider to place between the header row and
         body cells
     """
-    # Output data buffer
-    output = ''
     table = normalize_cols(table)
     table = pad_cells(table)
     header = table[0]
@@ -103,6 +100,10 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     table.extend(body)
     table = [row.rstrip() for row in table]
     return '\n'.join(table)
+
+
+def csv_to_table(file, delimiter):
+    return list(csv.reader(file, delimiter=delimiter))
 
 
 def main():
@@ -131,8 +132,7 @@ def main():
             first = False
         # Read the CSV files
         with open(filename, 'rU') as f:
-            csv = reader(f, delimiter=args.delimiter)
-            table = list(csv)
+            table = csv_to_table(f)
         # Print filename for each table if --no-filenames wasn't passed and more
         # than one CSV was provided
         file_count = len(args.files)

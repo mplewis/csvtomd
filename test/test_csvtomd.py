@@ -1,5 +1,6 @@
 from csvtomd.csvtomd import (
-    pad_to, normalize_cols, pad_cells, horiz_div, add_dividers, md_table
+    pad_to, normalize_cols, pad_cells, horiz_div, add_dividers, md_table,
+    csv_to_table
 )
 
 import pytest
@@ -7,6 +8,7 @@ import sure  # noqa
 
 import csv
 from glob import glob
+from io import StringIO
 
 
 def read_csv(path):
@@ -86,4 +88,20 @@ def test_md_table(csv, md):
     expected = read_file(md).rstrip('\n')
     print(output)
     print(expected)
+    output.should.equal(expected)
+
+
+csv_normal = """
+a,b,c,d
+w,x,y,z
+""".strip()
+csv_pounds = """
+a#b#c#d
+w#x#y#z
+""".strip()
+def test_csv_to_table():
+    expected = [['a', 'b', 'c', 'd'], ['w', 'x', 'y', 'z']]
+    output = csv_to_table(StringIO(csv_normal), ',')
+    output.should.equal(expected)
+    output = csv_to_table(StringIO(csv_pounds), '#')
     output.should.equal(expected)
