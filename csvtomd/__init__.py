@@ -1,1 +1,1 @@
-from csvtomd import *
+from .csvtomd import *

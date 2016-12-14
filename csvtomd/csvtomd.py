@@ -120,7 +120,8 @@ def main():
                         help="The number of spaces to add between table cells "
                              "and column dividers. Default is 2 spaces.")
     parser.add_argument('-d', '--delimiter', default=',',
-                        help="CSV delimiter, expected values: ',', ';'. Default is %(default)s")
+                        help='The delimiter to use when parsing CSV data. '
+                             'Default is "%(default)s"')
 
     args = parser.parse_args()
     first = True

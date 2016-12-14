@@ -12,7 +12,7 @@ setup(
     license='MIT',
     author='Matthew Lewis',
     author_email='matt@mplewis.com',
-    py_modules=['csvtomd'],
+    packages=['csvtomd'],
     entry_points={
         'console_scripts': [
             'csvtomd = csvtomd:main'
