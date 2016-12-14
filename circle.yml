@@ -1,0 +1,8 @@
+machine:
+  python:
+    version: 3.5.2
+
+dependencies:
+  override:
+    - python setup_wrap.py install
+    - pip install -r test/requirements_test.txt
