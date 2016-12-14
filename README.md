@@ -1,8 +1,8 @@
 # csvtomd: markdown tables made easy
 
-*Version 0.1.1*
-
 ![Excel —> Markdown](http://mplewis.com/files/csvtomd.png?)
+
+[![CircleCI](https://circleci.com/gh/mplewis/csvtomd.svg?style=svg)](https://circleci.com/gh/mplewis/csvtomd)
 
 Convert your CSV files into Markdown tables.
 
