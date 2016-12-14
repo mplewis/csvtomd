@@ -8,4 +8,4 @@ dependencies:
 
 test:
   override:
-    - py.test
+    - python -m pytest test/
