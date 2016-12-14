@@ -66,9 +66,9 @@ def horiz_div(col_widths, horiz, vert, padding):
     vert: the character to use for a vertical divider
     padding: amount of padding to add to each side of a column
     """
-    col_ws_padded = [cw + 2 * padding for cw in col_widths]
-    horizs = [horiz * w for w in col_ws_padded]
-    return vert.join(horizs)
+    horizs = [horiz * w for w in col_widths]
+    div = ''.join([padding * horiz, vert, padding * horiz])
+    return div.join(horizs)
 
 
 def md_table(table, *, padding=1, divider='|', header_div='-'):
@@ -89,7 +89,7 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     body = table[1:]
 
     col_widths = [len(cell) for cell in header]
-    horiz = horiz_line(col_widths, header_div, divider, padding)
+    horiz = horiz_div(col_widths, header_div, divider, padding)
 
 
     # Get max length of any cell for each column

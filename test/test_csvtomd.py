@@ -35,9 +35,15 @@ def test_pad_cells():
 
 
 def test_horiz_div():
+    """
+    notice that first and last cols aren't fully padded:
+    ['abc', 'd', 'ef'] =>
+    abc | d | ef
+    ----|---|---
+    """
     output = horiz_div([3, 1, 2], '-', '|', 1)
-    expected = '-----|---|----'
+    expected = '----|---|---'
     output.should.equal(expected)
     output = horiz_div([5, 3, 1], '.', '#', 2)
-    expected = '.........#.......#.....'
+    expected = '.......#.......#...'
     output.should.equal(expected)
