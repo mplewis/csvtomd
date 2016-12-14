@@ -1,21 +1,26 @@
-from csvtomd import md_table
+from csvtomd.csvtomd import pad_to, normalize_cols
 
 import sure  # noqa
-from csv import reader
 
 
-
-def test_default():
-    with open('test/input/normal.csv') as f:
-        to_convert = [row for row in reader(f)]
-    with open('test/output/normal.md') as f:
-        expected = f.read().strip()
-    md_table(to_convert).should.equal(expected)
+def test_pad_to():
+    pad_to('word', 8).should.equal('word    ')
+    pad_to('word', 2).should.equal('word')
 
 
-def test_jagged():
-    with open('test/input/jagged.csv') as f:
-        to_convert = [row for row in reader(f)]
-    with open('test/output/jagged.md') as f:
-        expected = f.read().strip()
-    md_table(to_convert).should.equal(expected)
+def test_normalize_cols():
+    initial = [
+        ['a', 'b', 'c'],
+        ['d'],
+        ['e', 'f'],
+    ]
+    expected = [
+        ['a', 'b', 'c'],
+        ['d',  '',  ''],
+        ['e', 'f',  ''],
+    ]
+    normalize_cols(initial).should.equal(expected)
+
+
+def test_pad_cells():
+    pass

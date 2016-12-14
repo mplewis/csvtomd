@@ -10,6 +10,7 @@ More info: http://github.com/mplewis/csvtomd
 
 import argparse
 from csv import reader
+from pprint import pprint
 
 
 def check_negative(value):
@@ -35,6 +36,27 @@ def pad_to(unpadded, target_len):
     return unpadded + (' ' * under)
 
 
+def normalize_cols(table):
+    """
+    Pad short rows to the length of the longest row to help render "jagged"
+    CSV files
+    """
+    longest_row_len = max([len(row) for row in table])
+    for row in table:
+        while len(row) < longest_row_len:
+            row.append('')
+    return table
+
+
+def pad_cells(table):
+    """Pad each cell to the size of the largest cell in its column."""
+    col_sizes = [max(map(len, col)) for col in zip(*table)]
+    for row in table:
+        for cell_num, cell in enumerate(row):
+            row[cell_num] = pad_to(cell, col_sizes[cell_num])
+    return table
+
+
 def md_table(table, *, padding=1, divider='|', header_div='-'):
     """
     Convert a 2D array of items into a Markdown table.
@@ -46,14 +68,10 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     """
     # Output data buffer
     output = ''
-    # Pad short rows to the length of the longest row to fix issues with
-    # rendering "jagged" CSV files
-    longest_row_len = max([len(row) for row in table])
-    for row in table:
-        while len(row) < longest_row_len:
-            row.append('')
+    table = normalize_cols(table)
+    table = pad_cells(table)
+    pprint(table)
     # Get max length of any cell for each column
-    col_sizes = [max(map(len, col)) for col in zip(*table)]
     # Set up the horizontal header dividers
     header_divs = [None] * len(col_sizes)
     num_cols = len(col_sizes)
@@ -66,10 +84,6 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
         header_div_row = divider.join(header_divs)[padding:-padding]
     else:
         header_div_row = divider.join(header_divs)
-    # Pad each cell to the column size
-    for row in table:
-        for cell_num, cell in enumerate(row):
-            row[cell_num] = pad_to(cell, col_sizes[cell_num])
     # Split out the header from the body
     header = table[0]
     body = table[1:]
@@ -87,7 +101,6 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
 
 
 def main():
-
     parser = argparse.ArgumentParser(
         description='Read one or more CSV files and output their contents in the '
                     'form of Markdown tables.')
