@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='csvtomd',
-    version='0.1.2',
+    version='0.2.0',
     description='Convert your CSV files into Markdown tables.',
     long_description=long_description,
     url='https://github.com/mplewis/csvtomd',
@@ -26,7 +26,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Topic :: Text Processing :: Markup'
     ],
 )

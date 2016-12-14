@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-csvtomd v0.1.2
+csvtomd 0.2.0
 
 Convert your CSV files into Markdown tables.
 
