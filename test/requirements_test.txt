@@ -1,2 +1,2 @@
-pytest==2.6.4
-sure==1.2.9
+pytest==3.0.5
+sure==1.4.0

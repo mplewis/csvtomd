@@ -1,8 +1,8 @@
 # csvtomd: markdown tables made easy
 
-*Version 0.1.1*
-
 ![Excel —> Markdown](http://mplewis.com/files/csvtomd.png?)
+
+[![CircleCI](https://circleci.com/gh/mplewis/csvtomd.svg?style=svg)](https://circleci.com/gh/mplewis/csvtomd)
 
 Convert your CSV files into Markdown tables.
 
@@ -107,8 +107,25 @@ optional arguments:
 
 # Contributions
 
-Bug reports, fixes, or features? Feel free to open an issue or pull request any time. You can also tweet me at [@mplewis](http://twitter.com/mplewis) or email me at [matt@mplewis.com](mailto:matt@mplewis.com).
+Bug reports, fixes, or features? Feel free to open an issue or pull request any time.
+
+## Testing
+
+I only accept pull requests for features with tests.
+
+```sh
+# Run tests in the project root
+$ py.test
+============================= test session starts ==============================
+platform darwin -- Python 3.5.0, pytest-3.0.5, py-1.4.31, pluggy-0.4.0
+rootdir: /your/path/to/csvtomd, inifile:
+collected 3 items
+
+test/test_csvtomd.py ...
+
+=========================== 3 passed in 0.04 seconds ===========================
+```
 
 # License
 
-Copyright (c) 2014 Matthew Lewis. Licensed under [the MIT License](http://opensource.org/licenses/MIT).
+Copyright (c) 2016 Matthew Lewis. Licensed under [the MIT License](http://opensource.org/licenses/MIT).

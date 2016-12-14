@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-csvtomd v0.1.2
+csvtomd 0.2.0
 
 Convert your CSV files into Markdown tables.
 
@@ -9,7 +9,7 @@ More info: http://github.com/mplewis/csvtomd
 """
 
 import argparse
-from csv import reader
+import csv
 
 
 def check_negative(value):
@@ -35,6 +35,47 @@ def pad_to(unpadded, target_len):
     return unpadded + (' ' * under)
 
 
+def normalize_cols(table):
+    """
+    Pad short rows to the length of the longest row to help render "jagged"
+    CSV files
+    """
+    longest_row_len = max([len(row) for row in table])
+    for row in table:
+        while len(row) < longest_row_len:
+            row.append('')
+    return table
+
+
+def pad_cells(table):
+    """Pad each cell to the size of the largest cell in its column."""
+    col_sizes = [max(map(len, col)) for col in zip(*table)]
+    for row in table:
+        for cell_num, cell in enumerate(row):
+            row[cell_num] = pad_to(cell, col_sizes[cell_num])
+    return table
+
+
+def horiz_div(col_widths, horiz, vert, padding):
+    """
+    Create the column dividers for a table with given column widths.
+
+    col_widths: list of column widths
+    horiz: the character to use for a horizontal divider
+    vert: the character to use for a vertical divider
+    padding: amount of padding to add to each side of a column
+    """
+    horizs = [horiz * w for w in col_widths]
+    div = ''.join([padding * horiz, vert, padding * horiz])
+    return div.join(horizs)
+
+
+def add_dividers(row, divider, padding):
+    """Add dividers and padding to a row of cells and return a string."""
+    div = ''.join([padding * ' ', divider, padding * ' '])
+    return div.join(row)
+
+
 def md_table(table, *, padding=1, divider='|', header_div='-'):
     """
     Convert a 2D array of items into a Markdown table.
@@ -44,50 +85,28 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     header_div: the horizontal divider to place between the header row and
         body cells
     """
-    # Output data buffer
-    output = ''
-    # Pad short rows to the length of the longest row to fix issues with
-    # rendering "jagged" CSV files
-    longest_row_len = max([len(row) for row in table])
-    for row in table:
-        while len(row) < longest_row_len:
-            row.append('')
-    # Get max length of any cell for each column
-    col_sizes = [max(map(len, col)) for col in zip(*table)]
-    # Set up the horizontal header dividers
-    header_divs = [None] * len(col_sizes)
-    num_cols = len(col_sizes)
-    # Pad header divs to the column size
-    for cell_num in range(num_cols):
-        header_divs[cell_num] = header_div * (col_sizes[cell_num] +
-                                              padding * 2)
-    # Trim first and last padding chars, if they exist
-    if padding > 0:
-        header_div_row = divider.join(header_divs)[padding:-padding]
-    else:
-        header_div_row = divider.join(header_divs)
-    # Pad each cell to the column size
-    for row in table:
-        for cell_num, cell in enumerate(row):
-            row[cell_num] = pad_to(cell, col_sizes[cell_num])
-    # Split out the header from the body
+    table = normalize_cols(table)
+    table = pad_cells(table)
     header = table[0]
     body = table[1:]
-    # Build the inter-column dividers using the padding settings above
-    multipad = ' ' * padding
-    divider = multipad + divider + multipad
-    output += divider.join(header) + '\n'
-    output += header_div_row + '\n'
-    for row in body:
-        output += divider.join(row) + '\n'
-    # Strip the last newline
-    if output.endswith('\n'):
-        output = output[:-1]
-    return output
+
+    col_widths = [len(cell) for cell in header]
+    horiz = horiz_div(col_widths, header_div, divider, padding)
+
+    header = add_dividers(header, divider, padding)
+    body = [add_dividers(row, divider, padding) for row in body]
+
+    table = [header, horiz]
+    table.extend(body)
+    table = [row.rstrip() for row in table]
+    return '\n'.join(table)
+
+
+def csv_to_table(file, delimiter):
+    return list(csv.reader(file, delimiter=delimiter))
 
 
 def main():
-
     parser = argparse.ArgumentParser(
         description='Read one or more CSV files and output their contents in the '
                     'form of Markdown tables.')
@@ -113,8 +132,7 @@ def main():
             first = False
         # Read the CSV files
         with open(filename, 'rU') as f:
-            csv = reader(f, delimiter=args.delimiter)
-            table = [row for row in csv]
+            table = csv_to_table(f)
         # Print filename for each table if --no-filenames wasn't passed and more
         # than one CSV was provided
         file_count = len(args.files)

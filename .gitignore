@@ -1,3 +1,4 @@
 csvtomd.egg-info
 build
 dist
+.cache
