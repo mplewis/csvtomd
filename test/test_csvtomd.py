@@ -1,4 +1,4 @@
-from csvtomd.csvtomd import pad_to, normalize_cols
+from csvtomd.csvtomd import pad_to, normalize_cols, pad_cells
 
 import sure  # noqa
 
@@ -23,4 +23,12 @@ def test_normalize_cols():
 
 
 def test_pad_cells():
-    pass
+    initial = [
+        ['12345', '123',  '1'],
+        [    '1', '123', '12'],
+    ]
+    expected = [
+        ['12345', '123', '1 '],
+        ['1    ', '123', '12'],
+    ]
+    pad_cells(initial).should.equal(expected)
