@@ -126,6 +126,21 @@ test/test_csvtomd.py ...
 =========================== 3 passed in 0.04 seconds ===========================
 ```
 
+## Releasing
+
+```sh
+# Bump version number in setup.py and csvtomd.py
+# Delete old builds
+rm -rf dist
+# Build source and binary wheel distribution
+python setup_wrap.py sdist bdist_wheel
+# Upload to PyPI
+pip install twine
+twine upload dist/*
+```
+
+[Here's an actual guide to PyPI.](https://packaging.python.org/distributing/) [And another really good one.](https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/)
+
 # License
 
 Copyright (c) 2016 Matthew Lewis. Licensed under [the MIT License](http://opensource.org/licenses/MIT).
