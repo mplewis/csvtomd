@@ -71,6 +71,12 @@ def horiz_div(col_widths, horiz, vert, padding):
     return div.join(horizs)
 
 
+def add_dividers(row, divider, padding):
+    """Add dividers and padding to a row of cells and return a string."""
+    div = ''.join([padding * ' ', divider, padding * ' '])
+    return div.join(row)
+
+
 def md_table(table, *, padding=1, divider='|', header_div='-'):
     """
     Convert a 2D array of items into a Markdown table.

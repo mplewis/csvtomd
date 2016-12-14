@@ -1,4 +1,6 @@
-from csvtomd.csvtomd import pad_to, normalize_cols, pad_cells, horiz_div
+from csvtomd.csvtomd import (
+    pad_to, normalize_cols, pad_cells, horiz_div, add_dividers
+)
 
 import sure  # noqa
 
@@ -47,3 +49,12 @@ def test_horiz_div():
     output = horiz_div([5, 3, 1], '.', '#', 2)
     expected = '.......#.......#...'
     output.should.equal(expected)
+
+
+def test_add_dividers():
+    output = add_dividers(['a', 'b', 'c'], '|', 1)
+    expected = 'a | b | c'
+    output = add_dividers(['a', 'b', 'c', 'd', 'e'], '#', 0)
+    expected = 'a#b#c#d#e'
+    output = add_dividers(['a', 'b', 'c', 'd'], '.', 3)
+    expected = 'a   .   b   .   c   .   d   .   e'
