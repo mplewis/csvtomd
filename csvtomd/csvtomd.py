@@ -90,39 +90,19 @@ def md_table(table, *, padding=1, divider='|', header_div='-'):
     output = ''
     table = normalize_cols(table)
     table = pad_cells(table)
-
     header = table[0]
     body = table[1:]
 
     col_widths = [len(cell) for cell in header]
     horiz = horiz_div(col_widths, header_div, divider, padding)
 
+    header = add_dividers(header, divider, padding)
+    body = [add_dividers(row, divider, padding) for row in body]
 
-    # Get max length of any cell for each column
-    # Set up the horizontal header dividers
-    header_divs = [None] * len(col_sizes)
-    num_cols = len(col_sizes)
-    # Pad header divs to the column size
-    for cell_num in range(num_cols):
-        header_divs[cell_num] = header_div * (col_sizes[cell_num] +
-                                              padding * 2)
-    # Trim first and last padding chars, if they exist
-    if padding > 0:
-        header_div_row = divider.join(header_divs)[padding:-padding]
-    else:
-        header_div_row = divider.join(header_divs)
-    # Split out the header from the body
-    # Build the inter-column dividers using the padding settings above
-    multipad = ' ' * padding
-    divider = multipad + divider + multipad
-    output += divider.join(header) + '\n'
-    output += header_div_row + '\n'
-    for row in body:
-        output += divider.join(row) + '\n'
-    # Strip the last newline
-    if output.endswith('\n'):
-        output = output[:-1]
-    return output
+    table = [header, horiz]
+    table.extend(body)
+    table = [row.rstrip() for row in table]
+    return '\n'.join(table)
 
 
 def main():
@@ -152,7 +132,7 @@ def main():
         # Read the CSV files
         with open(filename, 'rU') as f:
             csv = reader(f, delimiter=args.delimiter)
-            table = [row for row in csv]
+            table = list(csv)
         # Print filename for each table if --no-filenames wasn't passed and more
         # than one CSV was provided
         file_count = len(args.files)

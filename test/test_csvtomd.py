@@ -1,8 +1,22 @@
 from csvtomd.csvtomd import (
-    pad_to, normalize_cols, pad_cells, horiz_div, add_dividers
+    pad_to, normalize_cols, pad_cells, horiz_div, add_dividers, md_table
 )
 
+import pytest
 import sure  # noqa
+
+import csv
+from glob import glob
+
+
+def read_csv(path):
+    with open(path) as f:
+        return list(csv.reader(f))
+
+
+def read_file(path):
+    with open(path) as f:
+        return f.read()
 
 
 def test_pad_to():
@@ -58,3 +72,15 @@ def test_add_dividers():
     expected = 'a#b#c#d#e'
     output = add_dividers(['a', 'b', 'c', 'd'], '.', 3)
     expected = 'a   .   b   .   c   .   d   .   e'
+
+
+csvs = glob('test/input/*.csv')
+mds = glob('test/output/*.md')
+@pytest.mark.parametrize('csv,md', zip(csvs, mds))
+def test_md_table(csv, md):
+    table = read_csv(csv)
+    output = md_table(table)
+    expected = read_file(md).rstrip('\n')
+    print(output)
+    print(expected)
+    output.should.equal(expected)

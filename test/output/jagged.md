@@ -1,6 +1,6 @@
-First Name | Last Name | Location          | Allegiance     
+First Name | Last Name | Location          | Allegiance
 -----------|-----------|-------------------|----------------
-Mance      | Rayder    | North of the Wall | Wildlings      
-Margaery   | Tyrell    | The Reach         | House Tyrell   
+           | Rayder    | North of the Wall |
+Margaery   | Tyrell    | The Reach         |
 Danerys    | Targaryen | Meereen           | House Targaryen
-Tyrion     | Lannister | King's Landing    | House Lannister
+Tyrion     | Lannister |                   |
