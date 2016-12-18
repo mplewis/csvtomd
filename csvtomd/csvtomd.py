@@ -133,7 +133,7 @@ def main():
             first = False
         # Read the CSV files
         with open(filename, 'rU') as f:
-            table = csv_to_table(f)
+            table = csv_to_table(f, args.delimiter)
         # Print filename for each table if --no-filenames wasn't passed and
         # more than one CSV was provided
         file_count = len(args.files)
