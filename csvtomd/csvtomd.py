@@ -108,14 +108,14 @@ def csv_to_table(file, delimiter):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Read one or more CSV files and output their contents in the '
-                    'form of Markdown tables.')
-    parser.add_argument('files', metavar='csv_file', type=str,
-                        nargs='+', help='One or more CSV files to be converted')
+        description='Read one or more CSV files and output their contents in '
+                    'the form of Markdown tables.')
+    parser.add_argument('files', metavar='csv_file', type=str, nargs='+',
+                        help='One or more CSV files to be converted')
     parser.add_argument('-n', '--no-filenames', action='store_false',
                         dest='show_filenames',
-                        help="Don't display filenames when outputting multiple "
-                             "Markdown tables.")
+                        help="Don't display filenames when outputting "
+                             "multiple Markdown tables.")
     parser.add_argument('-p', '--padding', type=check_negative, default=2,
                         help="The number of spaces to add between table cells "
                              "and column dividers. Default is 2 spaces.")
@@ -134,13 +134,14 @@ def main():
         # Read the CSV files
         with open(filename, 'rU') as f:
             table = csv_to_table(f)
-        # Print filename for each table if --no-filenames wasn't passed and more
-        # than one CSV was provided
+        # Print filename for each table if --no-filenames wasn't passed and
+        # more than one CSV was provided
         file_count = len(args.files)
         if args.show_filenames and file_count > 1:
             print(filename + '\n')
         # Generate and print Markdown table
         print(md_table(table, padding=args.padding))
+
 
 if __name__ == '__main__':
     main()
