@@ -26,6 +26,8 @@ After this, run `csvtomd --help` from your terminal to verify it's installed pro
 
 `csvtomd SHEET1.csv SHEET2.csv SHEET3.csv` generates three Markdown tables from the input files and displays them alongside the input filename.
 
+`csvtomd` or `csvtomd -` generates a Markdown table from standard input. You can type CSV data or pipe a file in.
+
 ## Example Input
 
 File: `thrones.csv`
