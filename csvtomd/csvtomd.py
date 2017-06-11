@@ -10,6 +10,7 @@ More info: http://github.com/mplewis/csvtomd
 
 import argparse
 import csv
+import sys
 
 
 def check_negative(value):
@@ -110,8 +111,10 @@ def main():
     parser = argparse.ArgumentParser(
         description='Read one or more CSV files and output their contents in '
                     'the form of Markdown tables.')
-    parser.add_argument('files', metavar='csv_file', type=str, nargs='+',
-                        help='One or more CSV files to be converted')
+    parser.add_argument('files', metavar='csv_file', type=str, nargs='*',
+                        default=['-'],
+                        help="One or more CSV files to be converted. "
+                        "Use - for stdin.")
     parser.add_argument('-n', '--no-filenames', action='store_false',
                         dest='show_filenames',
                         help="Don't display filenames when outputting "
@@ -125,6 +128,10 @@ def main():
 
     args = parser.parse_args()
     first = True
+
+    if '-' in args.files and len(args.files) > 1:
+        print('Standard input can only be used alone.', file=sys.stderr)
+        exit(1)
     for file_num, filename in enumerate(args.files):
         # Print space between consecutive tables
         if not first:
@@ -132,8 +139,11 @@ def main():
         else:
             first = False
         # Read the CSV files
-        with open(filename, 'rU') as f:
-            table = csv_to_table(f, args.delimiter)
+        if filename == '-':
+            table = csv_to_table(sys.stdin, args.delimiter)
+        else:
+            with open(filename, 'rU') as f:
+                table = csv_to_table(f, args.delimiter)
         # Print filename for each table if --no-filenames wasn't passed and
         # more than one CSV was provided
         file_count = len(args.files)
