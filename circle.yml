@@ -9,4 +9,4 @@ dependencies:
 test:
   override:
     - python -m pytest test/
-    - python csvtomd/csvtomd.py test/input/*.csv
+    - test/test_stdin.sh
