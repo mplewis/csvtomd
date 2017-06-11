@@ -13,6 +13,9 @@ import csv
 import sys
 
 
+DEFAULT_PADDING = 2
+
+
 def check_negative(value):
     try:
         ivalue = int(value)
@@ -77,7 +80,7 @@ def add_dividers(row, divider, padding):
     return div.join(row)
 
 
-def md_table(table, *, padding=1, divider='|', header_div='-'):
+def md_table(table, *, padding=DEFAULT_PADDING, divider='|', header_div='-'):
     """
     Convert a 2D array of items into a Markdown table.
 
@@ -119,7 +122,8 @@ def main():
                         dest='show_filenames',
                         help="Don't display filenames when outputting "
                              "multiple Markdown tables.")
-    parser.add_argument('-p', '--padding', type=check_negative, default=2,
+    parser.add_argument('-p', '--padding', type=check_negative,
+                        default=DEFAULT_PADDING,
                         help="The number of spaces to add between table cells "
                              "and column dividers. Default is 2 spaces.")
     parser.add_argument('-d', '--delimiter', default=',',
