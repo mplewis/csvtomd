@@ -8,7 +8,7 @@ Convert your CSV files into Markdown tables.
 
 [Tables Generator](http://www.tablesgenerator.com/markdown_tables) is a fantastic web tool for converting tabular data into all sorts of table layouts. I like how it lets me import CSV files, but I need the ability to convert many CSV files in batch for a docset on which I'm working.
 
-I built `csvtomd` to convert one or more CSV files into nicely-padded Markdown tables. Now you can build your tables in Excel and convert them for use in GitHub, Bitbucket, or [Mou](http://mouapp.com/) Markdown files without having to construct them by hand.
+I built `csvtomd` to convert one or more CSV files into nicely-padded Markdown tables. Now you can build your tables in Excel and convert them for use in GitHub Markdown files without having to construct them by hand.
 
 # Installation
 
@@ -145,4 +145,4 @@ twine upload dist/*
 
 # License
 
-Copyright (c) 2016 Matthew Lewis. Licensed under [the MIT License](http://opensource.org/licenses/MIT).
+Copyright (c) 2017 Matthew Lewis. Licensed under [the MIT License](http://opensource.org/licenses/MIT).
