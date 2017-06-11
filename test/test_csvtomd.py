@@ -86,8 +86,6 @@ def test_md_table(csv, md):
     table = read_csv(csv)
     output = md_table(table)
     expected = read_file(md).rstrip('\n')
-    print(output)
-    print(expected)
     output.should.equal(expected)
 
 
