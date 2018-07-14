@@ -3,7 +3,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from csvtomd import (
+from csvtomd import (  # noqa: E402,F401
     pad_to,
     normalize_cols,
     pad_cells,
