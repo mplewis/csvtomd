@@ -9,6 +9,7 @@ More info: http://github.com/mplewis/csvtomd
 """
 
 import argparse
+from toolz.curried import compose, map
 
 # import csv
 # import sys
@@ -31,6 +32,12 @@ def wrap(outer, count, inner):
     if count <= 0:
         return inner
     return wrap(outer, count - 1, outer + inner + outer)
+
+
+def col_widths(table):
+    longest = compose(max, map(len))
+    cols = zip(*table)
+    return list(map(longest, cols))
 
 
 # if __name__ == "__main__":
