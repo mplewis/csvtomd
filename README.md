@@ -1,5 +1,19 @@
 # csvtomd: markdown tables made easy
 
+# This project is discontinued
+
+Thanks for all your contributions! At this time I'm not continuing development on the Python version of this tool.
+
+I'm moving work to the following JS projects:
+
+* [csvtomd lib](https://github.com/mplewis/csvtomd-lib)
+* [csvtomd CLI](https://github.com/mplewis/csvtomd-cli)
+* [csvtomd web](https://github.com/mplewis/csvtomd-web)
+
+I'm happy to point to your projects if you decide to take over development on the Python version! Just let me know.
+
+-----
+
 ![Excel —> Markdown](http://mplewis.com/files/csvtomd.png?)
 
 [![CircleCI](https://circleci.com/gh/mplewis/csvtomd.svg?style=svg)](https://circleci.com/gh/mplewis/csvtomd)
